@@ -1,0 +1,86 @@
+package com.bridgelabz.javafundamentals;
+
+import java.util.Arrays;
+
+public class TwoDimenssionalArray {
+	static int[][] snakePosition = new int[3][2];
+	static int[][] stairPosition = new int[3][2];
+	
+	
+	public static void main(String[] args) {
+		
+		int[][] array = new int[10][10]; 
+		
+		int positionleft = 100;
+		int positionRight = 100;
+		for (int i = 0; i < array.length; i++) {
+		if (i % 2 == 0) {
+		positionRight = positionleft;
+		for (int j = 0; j < array[i].length; j++) {
+		array[i][j] = positionRight--;
+		}
+		} else {
+		positionleft = positionRight;
+		for (int j = array[i].length - 1; j >= 0; j--) {
+		array[i][j] = positionleft--;
+		}
+		}
+
+		}
+
+		for (int i = 0; i < array.length; i++) {
+		for (int j = 0; j < array[i].length; j++) {
+		System.out.print(array[i][j] + "\t");
+		}
+		System.out.println();
+		}
+		snakePosition[0] = new int[]{94, 15};
+		snakePosition[1] = new int[]{77, 33};
+		snakePosition[2] = new int[]{69, 17};
+
+		stairPosition[0] = new int[]{45, 11};
+		stairPosition[1] = new int[]{78, 28};
+		stairPosition[2] = new int[]{67, 13};
+		
+
+
+		int value = (int) 0.89898;
+		System.out.println(value); // 0
+
+		int playerPosition = 0;
+		System.out.println("====== dice check =============");
+		boolean isGameRunning = true;
+		while (isGameRunning) {
+		int diceValue = (((int) (Math.random() * 10)) % 6) + 1; 
+		playerPosition = playerPosition + diceValue;
+		if (playerPosition > 100)
+		playerPosition = playerPosition - diceValue;
+		playerPosition = checkForSnake(playerPosition);
+		playerPosition = checkForStair(playerPosition);
+
+		System.out.print(playerPosition + ",");
+		if (playerPosition == 100)
+		isGameRunning = false;
+		}
+
+		
+
+		}
+
+		private static Integer checkForSnake(int playerPosition) {
+		for (int i = 0; i < snakePosition.length; i++) {
+		if (playerPosition == snakePosition[i][0])
+		return snakePosition[i][1];
+		}
+		return playerPosition;
+		}
+
+		private static Integer checkForStair(int playerPosition) {
+		for (int i = 0; i < snakePosition.length; i++) {
+		if (playerPosition == snakePosition[i][1])
+		return snakePosition[i][0];
+		}
+		return playerPosition;
+						
+	}
+}
